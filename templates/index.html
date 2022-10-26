@@ -44,62 +44,27 @@
 
         <div class="row justify-content-center">
             <div class="col-sm-10 bg-white shadow p-4 px-5 pb-3 mt-1 rounded-3">
-                <h3>Sistem Prediksi Kinerja Mahasiswa Menggunakan Metode Regresi Logistik Multinomial</h3>
+                <h3>Sistem Prediksi Predikat Kelulusan Mahasiswa Menggunakan Metode Regresi Logistik Multinomial</h3>
                 <div class="row justify-content-center">
 
                 <form action="{{ url_for('index') }}" method="post">
                     <div class="row mt-5">
                         <div class="col-sm-6">
                             <div class="mb-3 row mb-sm-4">
-                                <label class="col-sm-3 col-form-label pe-0">Jenis Kelamin</label>
-                                <div class="col-sm-9">
-                                    <select class="form-select form-select" name="gender">
-                                        {% for v, t in termFreq[0] %}
-                                        {% set selectGender = ('selected' if ((t | replace(',','.')) | float)==(data['JENIS_KELAMIN'][-1] | float) else '') if s %}
-                                        <option value="{{t | replace(',','.')}}" {{selectGender}}>{{v}}</option>
-                                        {% endfor %}
-                                      </select>
-                                </div>
-                            </div>
-                            <div class="mb-3 row mb-sm-4">
-                                <label class="col-sm-3 col-form-label">Asal Daerah</label>
-                                <div class="col-sm-9">
-                                    <select class="form-select form-select" name="daerah">
-                                        {% for v, t in termFreq[1] %}
-                                            {% if t != '0' %}
-                                            {% set selectDaerah = ('selected' if ((t | replace(',','.')) | float)==(data['ASAL_DAERAH'][-1] | float) else '') if s %}
-                                            <option value="{{t | replace(',','.')}}" {{selectDaerah}}>{{v}}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                      </select>
-                                </div>
-                            </div>
-                            <div class="mb-3 row mb-sm-4">
-                                <label class="col-sm-3 col-form-label">Jalur Masuk</label>
-                                <div class="col-sm-9">
-                                    <select class="form-select form-select" name="jalur">
-                                        {% for v, t in termFreq[2] %}
-                                        {% set selectJalur = ('selected' if ((t | replace(',','.')) | float)==(data['JALUR_MASUK'][-1] | float) else '') if s %}
-                                        <option value="{{t | replace(',','.')}}" {{selectJalur}}>{{v}}</option>
-                                        {% endfor %}
-                                      </select>
-                                </div>
-                            </div>
-                            <div class="mb-3 row mb-sm-4">
                                 <label class="col-sm-3 col-form-label">IP 1</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" placeholder="IP 1" name="ip1" value="{{ data['IP 1'][-1] if s else '' }}" required>
                                 </div>
                             </div>
-                            
-                        </div>
-                        <div class="col-sm-6">
                             <div class="mb-3 row mb-sm-4">
                                 <label class="col-sm-3 col-form-label">IP 2</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="ip2" placeholder="IP 2" value="{{ data['IP 2'][-1] if s else '' }}" required>
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
                             <div class="mb-3 row mb-sm-4">
                                 <label class="col-sm-3 col-form-label">IP 3</label>
                                 <div class="col-sm-9">

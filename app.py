@@ -19,7 +19,8 @@ app = Flask(__name__, template_folder=template_path, static_folder=static_path)
 app.secret_key = 'ini kunci rahasia'
 
 #memanggil data csv
-data = pd.read_csv('data/datafixx.csv', sep=';')
+#data = pd.read_csv('data/datafixx.csv', sep=';')
+data = pd.read_csv('data/dataset_ip4_hip4.csv')
 #PREDIKAT
 data['PREDIKAT'].value_counts()
 data['PREDIKAT id'] = data['PREDIKAT'].factorize()[0]
@@ -32,27 +33,27 @@ y = data.iloc[:,-1].values
 # membagi data set menggunakan sklearn
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 20)
 
-def termFrequency():
-    ds = pd.read_csv('data/dataset term frequency.csv', sep=';')
-    jenisKelamin = zip(ds['kategori'][:2],ds['term frequency'][:2])
-    daerahAsal = zip(ds['kategori'][2:9],ds['term frequency'][2:9])
-    jalurMasuk = zip(ds['kategori'][9:],ds['term frequency'][9:])
-    return jenisKelamin, daerahAsal, jalurMasuk
+#def termFrequency():
+#    ds = pd.read_csv('data/dataset term frequency.csv', sep=';')
+#    jenisKelamin = zip(ds['kategori'][:2],ds['term frequency'][:2])
+#    daerahAsal = zip(ds['kategori'][2:9],ds['term frequency'][2:9])
+#    jalurMasuk = zip(ds['kategori'][9:],ds['term frequency'][9:])
+#    return jenisKelamin, daerahAsal, jalurMasuk
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        JENIS_KELAMIN = request.form['gender']
-        ASAL_DAERAH = request.form['daerah']
-        JALUR_MASUK = request.form['jalur']
+        #JENIS_KELAMIN = request.form['gender']
+        #ASAL_DAERAH = request.form['daerah']
+        #JALUR_MASUK = request.form['jalur']
         IP1 = request.form['ip1']
         IP2 = request.form['ip2']
         IP3 = request.form['ip3']
         IP4 = request.form['ip4']
         dictData = {
-            'JENIS_KELAMIN' : [JENIS_KELAMIN],
-            'ASAL_DAERAH': [ASAL_DAERAH],
-            'JALUR_MASUK' : [JALUR_MASUK],
+            #'JENIS_KELAMIN' : [JENIS_KELAMIN],
+            #'ASAL_DAERAH': [ASAL_DAERAH],
+            #'JALUR_MASUK' : [JALUR_MASUK],
             'IP 1' : [IP1], 
             'IP 2' : [IP2], 
             'IP 3' : [IP3], 
@@ -65,9 +66,9 @@ def index():
             pred = model.predict(dataPredict)
             predictRes = PREDIKAT[pred[-1]]
 
-            return render_template('index.html', s=True, data=dictData, predict=predictRes, termFreq=termFrequency())
+            return render_template('index.html', s=True, data=dictData, predict=predictRes)
 
-    return render_template('index.html', predictStatus=False, termFreq=termFrequency())
+    return render_template('index.html', predictStatus=False)
 
 #run flask server
 if __name__ == '__main__':
